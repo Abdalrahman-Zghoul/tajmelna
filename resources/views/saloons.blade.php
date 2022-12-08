@@ -10,7 +10,7 @@
         <div class="col-lg-4 col-md-6 mb-5">
           <div class="ts-service-box">
               <div class="ts-service-image-wrapper">
-                <img loading="lazy" class="w-100" src="{{$item->profile_image}}" alt="saloon-image">
+                <img loading="lazy" class="w-100" src="{{asset('storage/'.$item->profile_image)}}" alt="saloon-image">
               </div>
               <div class="d-flex">
                 <div class="ts-service-info">

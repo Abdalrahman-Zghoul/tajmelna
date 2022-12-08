@@ -7,7 +7,7 @@
   </div>
   <div class="row card-body">
     <div class="col-md-6">
-      <form method="POST" action="{{ route('save-saloon') }}">
+      <form method="POST" action="{{ route('save-saloon') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
           <label for="name">Saloon Name</label>
@@ -22,7 +22,7 @@
           <input type="text" name="location" class="btn ms-2 text-start border d-block" id="location" placeholder="Zarqa, Batrawi" required>
         </div>
         <div class="form-group">
-          <label for="profile_image">Profile Image (Link)</label>
+          <label for="profile_image">Profile Image</label>
           <input type="file" name="profile_image" class="btn ms-2 text-start border d-block" id="profile_image" placeholder="http://----" required>
         </div>
     </div>

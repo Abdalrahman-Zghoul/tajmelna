@@ -61,13 +61,16 @@ class SaloonController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
+        $name = Str::random(10);
+        $extension = $request->file('profile_image')->getClientOriginalExtension();
+        Storage::putFileAs('public',$request->file("profile_image"),$name.".".$extension);
         $saloon = Saloon::create([
             'name' => $request['name'],
             'owner_id' => Auth::user()->id,
             'phone' => $request['phone'],
             'location' => $request['location'],
-            'profile_image' => $request['profile_image']
+            'profile_image' => $name . '.' . $extension
         ]);
 
         $mats = Material::all();
@@ -83,9 +86,10 @@ class SaloonController extends Controller
         for ($i = 1; $i <= 4; $i++) {
             if ($request['image' . $i]) {
                 $name = Str::random(10);
-                Storage::put('images/' . $name . '.jpg', $request['image' . $i]);
+                $extension = $request->file('image' . $i)->getClientOriginalExtension();
+                Storage::putFileAs('public',$request->file("image".$i),$name.".".$extension);
                 Image::create([
-                    'image' => $name . '.jpg',
+                    'image' => $name . '.' . $extension,
                     'saloon_id' => $saloon['id']
                 ]);
             }
@@ -131,13 +135,21 @@ class SaloonController extends Controller
      */
     public function update(Request $request, Saloon $saloon)
     {
-        // dd($request,$request->file('image1'));
+        // dd($request);
         $saloon->update([
             'name' => $request['name'],
             'location' => $request['location'],
             'phone' => $request['phone'],
-            'profile_image' => $request['profile_image']
         ]);
+
+        if($request->file('profile_image')){
+            $name = Str::random(10);
+            $extension = $request->file('profile_image')->getClientOriginalExtension();
+            Storage::putFileAs('public',$request->file("profile_image"),$name.'.'.$extension);
+            $saloon->update([
+                'profile_image' => $name.'.'.$extension
+            ]);
+        }
 
         Service::where('saloon_id', $saloon->id)->delete();
         $mats = Material::all();
@@ -150,15 +162,18 @@ class SaloonController extends Controller
                 ]);
         }
 
-        Image::where('saloon_id', $saloon->id)->delete();
-        for ($i = 1; $i <= 4; $i++) {
-            if ($request->file('image' . $i)) {
-                $name = Str::random(10);
-                Storage::putFileAs('public',$request->file("image".$i),$name.".jpg");
-                Image::create([
-                    'image' => $name . '.jpg',
-                    'saloon_id' => $saloon['id']
-                ]);
+        if($request->file('image1')){
+            Image::where('saloon_id', $saloon->id)->delete();
+            for ($i = 1; $i <= 4; $i++) {
+                if ($request->file('image' . $i)) {
+                    $name = Str::random(10);
+                    $extension = $request->file('image' . $i)->getClientOriginalExtension();
+                    Storage::putFileAs('public',$request->file("image".$i),$name.".".$extension);
+                    Image::create([
+                        'image' => $name . '.' . $extension,
+                        'saloon_id' => $saloon['id']
+                    ]);
+                }
             }
         }
 

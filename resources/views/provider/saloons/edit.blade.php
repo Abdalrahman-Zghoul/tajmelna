@@ -23,8 +23,8 @@
               <input type="text" name="location" class="btn ms-2 text-start border d-block" id="location" placeholder="Zarqa, Batrawi" value="{{$saloon->location}}" required>
             </div>
             <div class="form-group">
-              <label for="profile_image">Profile Image (Link)</label>
-              <input type="text" name="profile_image" class="btn ms-2 text-start border d-block" id="profile_image" placeholder="http://----" value="{{$saloon->profile_image}}" required>
+              <label for="profile_image">Profile Image</label>
+              <input type="file" name="profile_image" class="btn ms-2 text-start border d-block" id="profile_image">
             </div>
         </div>
         <div class="col-md-4">
