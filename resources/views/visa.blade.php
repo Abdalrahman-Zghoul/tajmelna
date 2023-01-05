@@ -366,7 +366,7 @@ input {
 
 .submit-btn{
   margin-top: 1em;
-  background-color: #ffc107;
+  background-color: #cf4a8f;
   color: white;
   font-size: 1.5em;
   border: none;

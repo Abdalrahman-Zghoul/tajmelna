@@ -73,6 +73,9 @@ Route::group(['middleware'=>['auth','isUser']],function(){
     Route::post('/visa/{order}',[VisaController::class,'store'])->name('save-visa');
     Route::get('/done-booking',[OrderController::class,'done'])->name('order-done');
     Route::get('/profile',[UserProfileController::class,'index'])->name('profile');
+    Route::get('/updated',[UserProfileController::class,'updated'])->name('updated');
+    Route::get('/edit-profile/{user}',[UserProfileController::class,'edit'])->name('edit-profile');
+    Route::put('/edit-profile/{user}',[UserProfileController::class,'update'])->name('edit-profile');
 });
 
 Route::group(['middleware'=>['auth','isAdmin']],function(){

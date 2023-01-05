@@ -5,6 +5,7 @@
 <!-- Table row -->
 <div class="container">
               <h2>Hello, {{$user->name}}</h2>
+              <a href="{{route("edit-profile", $user->id)}}" class="btn btn-primary" style="margin: 1em 0;float:right">Edit Profile</a>
             <div class="col-15 table-responsive">
               <table class="table table-striped">
                 <thead>
